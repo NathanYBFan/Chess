@@ -15,4 +15,4 @@ MonoBehaviour:
   PieceName: 3
   PieceIcon: {fileID: 1331993721, guid: 20108c3daa323cd49bf5f9c27ad6fc0c, type: 3}
   PlayerAssigned: 1
-  PieceObject: {fileID: 0}
+  PieceMovement: {fileID: 8166314537851202815, guid: 27d7f5f1f3e0e234fa43da355961dbf5, type: 3}

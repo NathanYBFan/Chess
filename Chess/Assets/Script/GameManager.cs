@@ -71,8 +71,8 @@ public sealed class GameManager : MonoBehaviour
             //GameObject white_Knight = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
             //boardScript.PlacePiece(white_Knight, listOfWhitePieces[2], new Vector2Int(7, 1 + i * 5));
 
-            //GameObject white_Bishop = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-            //boardScript.PlacePiece(white_Bishop, listOfWhitePieces[3], new Vector2Int(7, 2 + i * 3));
+            GameObject white_Bishop = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
+            boardScript.PlacePiece(white_Bishop, listOfWhitePieces[3], new Vector2Int(7, 2 + i * 3));
 
             // Black
             GameObject black_Rook = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
@@ -81,8 +81,8 @@ public sealed class GameManager : MonoBehaviour
             //GameObject black_Knight = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
             //boardScript.PlacePiece(black_Knight, listOfBlackPieces[2], new Vector2Int(0, 1 + i * 5));
 
-            //GameObject black_Bishop = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-            //boardScript.PlacePiece(black_Bishop, listOfBlackPieces[3], new Vector2Int(0, 2 + i * 3));
+            GameObject black_Bishop = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
+            boardScript.PlacePiece(black_Bishop, listOfBlackPieces[3], new Vector2Int(0, 2 + i * 3));
         }
 
         // Kings
