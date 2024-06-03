@@ -50,16 +50,19 @@ public class Tile : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!GameManager._Instance.CanSelect) return;
+        // Double click on same piece
         if (hasPiece && gameObject.transform.GetChild(1).gameObject == GameManager._Instance.SelectedPiece)
         {
             GameManager._Instance.DeselectAllTiles();
         }
+        // glow is active
         else if (glowHighlightObject.activeInHierarchy)
         {
             if (GameManager._Instance.SelectedPiece != null)
             {
                 if (hasPiece)
-                    Destroy(gameObject.transform.GetChild(1).gameObject);
+                    GameManager._Instance.BoardScript.GetPieceOnTile(tileLocation).Death(tileLocation);
 
                 GameManager._Instance.SelectedPiece.GetComponent<defaultPiece>().PieceAssigned.PieceMovement.MovePiece(TileLocation);
             }

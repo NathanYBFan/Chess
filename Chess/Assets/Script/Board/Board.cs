@@ -63,7 +63,21 @@ public sealed class Board : MonoBehaviour
         piece.transform.localPosition = Vector3.zero;
 
         GameManager._Instance.DeselectAllTiles();
-        GameManager._Instance.NextTurn();
+    }
+
+    public void MovePieceWithoutDeselect(GameObject piece, Vector2Int newLocation)
+    {
+        // Set saved location
+        piece.GetComponent<defaultPiece>().PieceAssigned.PieceMovement.CurrentLocation = newLocation;
+
+        // Reset transform parent
+        piece.transform.SetParent(rows[newLocation.y].Tiles[newLocation.x].transform, false);
+
+        // Set new tile data
+        GameManager._Instance.BoardScript.GetTileFromPosition(newLocation).HasPiece = true;
+
+        // Reset local position to 0
+        piece.transform.localPosition = Vector3.zero;
     }
 
     public Tile GetTileFromPosition(Vector2Int positionToCheck)

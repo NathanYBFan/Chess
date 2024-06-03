@@ -7,7 +7,9 @@ public enum Players
 public enum PieceNames
 {
     Pawn,
-    Rook,
+    RookA,
+    RookB,
+    newRook,
     Knight,
     Bishop,
     Queen,

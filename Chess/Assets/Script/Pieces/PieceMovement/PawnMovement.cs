@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PawnMovement : PieceMovement
@@ -37,7 +38,19 @@ public class PawnMovement : PieceMovement
         }
 
         // En passant
-        // Change when moved to end of board
+        var temp = currentLocation; 
+        // If piece is a pawn && it was first move
+        if (PreviousMoveManager._Instance.Recorder.recordingQueue.Count > 0
+            && PreviousMoveManager._Instance.Recorder.recordingQueue.Last().Piece == PieceNames.Pawn
+            && Mathf.Abs(PreviousMoveManager._Instance.Recorder.recordingQueue.Last().MoveToLocation.y - PreviousMoveManager._Instance.Recorder.recordingQueue.Last().CurrentLocation.y) == 2
+            && (PreviousMoveManager._Instance.Recorder.recordingQueue.Last().MoveToLocation == temp - new Vector2Int(-1, 0)
+            || PreviousMoveManager._Instance.Recorder.recordingQueue.Last().MoveToLocation == temp - new Vector2Int(1, 0)))
+        {
+            if (facingUp)
+                availablePositions.Add(PreviousMoveManager._Instance.Recorder.recordingQueue.Last().MoveToLocation == temp - new Vector2Int(-1, 0) ? temp - new Vector2Int(-1, 1) : temp - new Vector2Int(1, 1));
+            else
+                availablePositions.Add(PreviousMoveManager._Instance.Recorder.recordingQueue.Last().MoveToLocation == temp - new Vector2Int(-1, 0) ? temp - new Vector2Int(-1, -1) : temp - new Vector2Int(1, -1));
+        }
 
         // Check if newPos is valid
         foreach (Vector2Int position in availablePositions)
@@ -46,11 +59,38 @@ public class PawnMovement : PieceMovement
         }
     }
 
-    public override void MoveAddons() { }
-
-    private bool PawnCanMove(Vector2Int position, Vector2Int currentLocation)
+    public override void MoveAddons(Vector2Int moveToLocation)
     {
-        // If both are from the same player (eg. white & white)
-        return (GameManager._Instance.BoardScript.GetPieceOnTile(position) != null && GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation) != null && GameManager._Instance.BoardScript.GetPieceOnTile(position).PlayerAssigned != GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned);
+        var temp = CurrentLocation;
+        if (PreviousMoveManager._Instance.Recorder.recordingQueue.Count <= 0) return; // Has been a move before
+        if (PreviousMoveManager._Instance.Recorder.recordingQueue.Last().Piece != PieceNames.Pawn) return; // last moved piece was a pawn
+        if (Mathf.Abs(PreviousMoveManager._Instance.Recorder.recordingQueue.Last().MoveToLocation.y - PreviousMoveManager._Instance.Recorder.recordingQueue.Last().CurrentLocation.y) != 2) return; // Last move was a double move
+        if ((PreviousMoveManager._Instance.Recorder.recordingQueue.Last().MoveToLocation != temp - new Vector2Int(-1, 0) && PreviousMoveManager._Instance.Recorder.recordingQueue.Last().MoveToLocation != temp - new Vector2Int(1, 0))) return;
+
+        // Chose enpassant
+
+        if (moveToLocation == temp - new Vector2Int(-1, 1) || moveToLocation == temp - new Vector2Int(-1, -1)) // Left
+        {
+            Debug.Log(temp - new Vector2Int(-1, 0));
+
+            GameManager._Instance.BoardScript.GetPieceOnTile(temp - new Vector2Int(-1, 0)).Death(temp - new Vector2Int(-1, 0));
+        }
+        else if (moveToLocation == temp - new Vector2Int(1, 1) || moveToLocation == temp - new Vector2Int(1, -1)) // Right
+        {
+            Debug.Log(moveToLocation);
+            Debug.Log(temp - new Vector2Int(1, 1));
+            Debug.Log(temp - new Vector2Int(1, -1));
+            GameManager._Instance.BoardScript.GetPieceOnTile(temp - new Vector2Int(1, 0)).Death(temp - new Vector2Int(1, 0));
+        }
+    }
+
+    public override void PostMoveAddons()
+    {
+        // Change piece if at end of board
+        if ((GameManager._Instance.BoardScript.GetPieceOnTile(CurrentLocation).PlayerAssigned == Players.PlayerA && CurrentLocation.y == 7)
+            || (GameManager._Instance.BoardScript.GetPieceOnTile(CurrentLocation).PlayerAssigned == Players.PlayerB && CurrentLocation.y == 0))
+            GameManager._Instance.PawnChange(CurrentLocation);
+        else
+            GameManager._Instance.NextTurn();
     }
 }

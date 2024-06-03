@@ -13,20 +13,25 @@ public abstract class PieceMovement : MonoBehaviour
 
     public abstract void HighlightAvailableLocations(Vector2Int currentLocation, bool facingUp);
 
-    public abstract void MoveAddons();
+    public abstract void MoveAddons(Vector2Int moveToLocation);
+
+    public abstract void PostMoveAddons();
     public void MovePiece(Vector2Int moveToLocation)
     {
         // Uncheck has piece bool from current tile
         GameManager._Instance.BoardScript.GetTileFromPosition(currentLocation).HasPiece = false;
+        
+        // Any additional pre move add-ons
+        MoveAddons(moveToLocation);
+
+        // Save move to queue
+        PreviousMoveManager._Instance.AddMove(pieceName, GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned, currentLocation, moveToLocation);
 
         // Assign self to new tile
         GameManager._Instance.BoardScript.MovePiece(GameManager._Instance.SelectedPiece, moveToLocation);
-        MoveAddons();
-    }
-    
-    public void Death()
-    {
-        Destroy(GameManager._Instance.BoardScript.GetObjectOnTile(currentLocation));
+
+        // After the move addons
+        PostMoveAddons();
     }
 
     public bool IsValidLocation(Vector2Int position)

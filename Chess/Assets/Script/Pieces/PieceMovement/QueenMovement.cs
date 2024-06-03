@@ -146,5 +146,6 @@ public class QueenMovement : PieceMovement
             GameManager._Instance.BoardScript.GetTileFromPosition(position).HighlightTile();
     }
 
-    public override void MoveAddons() { }
+    public override void MoveAddons(Vector2Int moveToLocation) { }
+    public override void PostMoveAddons() { GameManager._Instance.NextTurn(); }
 }
