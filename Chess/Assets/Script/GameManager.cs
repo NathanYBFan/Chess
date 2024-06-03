@@ -92,12 +92,12 @@ public sealed class GameManager : MonoBehaviour
         GameObject black_King = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
         boardScript.PlacePiece(black_King, listOfBlackPieces[4], new Vector2Int(0, 3));
 
-        //// Queens
-        //GameObject white_Queen = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-        //boardScript.PlacePiece(white_Queen, listOfWhitePieces[5], new Vector2Int(7, 4));
+        // Queens
+        GameObject white_Queen = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
+        boardScript.PlacePiece(white_Queen, listOfWhitePieces[5], new Vector2Int(7, 4));
 
-        //GameObject black_Queen = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-        //boardScript.PlacePiece(black_Queen, listOfBlackPieces[5], new Vector2Int(0, 4));
+        GameObject black_Queen = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
+        boardScript.PlacePiece(black_Queen, listOfBlackPieces[5], new Vector2Int(0, 4));
     }
 
     public void DeselectAllTiles()

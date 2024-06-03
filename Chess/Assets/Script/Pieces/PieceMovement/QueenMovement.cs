@@ -1,18 +1,150 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QueenMovement : MonoBehaviour
+public class QueenMovement : PieceMovement
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void HighlightAvailableLocations(Vector2Int currentLocation, bool facingUp)
     {
-        
+        List<Vector2Int> availablePositions = new List<Vector2Int>();
+        // Check top left
+        for (int y = 1; y < GameManager._Instance.BoardScript.GetNumberOfRows(); y++)
+        {
+            var temp = currentLocation;
+            temp += new Vector2Int(-y, -y);
+
+            if (!IsValidLocation(temp)) break;
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned == GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+
+            // Add position
+            availablePositions.Add(temp);
+
+            // If tile has piece and its unfriendly, its already added so break now
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned
+                != GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+        }
+        // Check top right
+        for (int y = 1; y < GameManager._Instance.BoardScript.GetNumberOfRows(); y++)
+        {
+            var temp = currentLocation;
+            temp += new Vector2Int(y, -y);
+
+            if (!IsValidLocation(temp)) break;
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned == GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+            availablePositions.Add(temp);
+
+            // If tile has piece and its unfriendly, its already added so break now
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned
+                != GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+        }
+        for (int y = 1; y < GameManager._Instance.BoardScript.GetNumberOfRows(); y++)
+        {
+            var temp = currentLocation;
+            temp += new Vector2Int(-y, y);
+
+            if (!IsValidLocation(temp)) break;
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned == GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+
+            // Add position
+            availablePositions.Add(temp);
+
+            // If tile has piece and its unfriendly, its already added so break now
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned
+                != GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+        }
+        // Check bottom right
+        for (int y = 1; y < GameManager._Instance.BoardScript.GetNumberOfRows(); y++)
+        {
+            var temp = currentLocation;
+            temp += new Vector2Int(y, y);
+
+            if (!IsValidLocation(temp)) break;
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned == GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+
+            // Add position
+            availablePositions.Add(temp);
+
+            // If tile has piece and its unfriendly, its already added so break now
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned
+                != GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+        }
+
+        // Check Left
+        for (var x = 1; x < GameManager._Instance.BoardScript.GetNumberOfColumns(); x++)
+        {
+            // Position to check
+            var temp = currentLocation;
+            temp += new Vector2Int(-x, 0);
+
+            if (!IsValidLocation(temp)) break;
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned == GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+            availablePositions.Add(temp);
+            
+            // Add position
+            availablePositions.Add(temp);
+
+            // If tile has piece and its unfriendly, its already added so break now
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned
+                != GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+        }
+        // Check Right
+        for (int x = 1; x < GameManager._Instance.BoardScript.GetNumberOfColumns(); x++)
+        {
+            // Position to check
+            var temp = currentLocation;
+            temp += new Vector2Int(x, 0);
+
+            if (!IsValidLocation(temp)) break;
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned == GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+            availablePositions.Add(temp);
+
+            // Add position
+            availablePositions.Add(temp);
+
+            // If tile has piece and its unfriendly, its already added so break now
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned
+                != GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+        }
+        // Check Down
+        for (int y = 1; y < GameManager._Instance.BoardScript.GetNumberOfRows(); y++)
+        {
+            // Position to check
+            var temp = currentLocation;
+            temp += new Vector2Int(0, y);
+
+            if (!IsValidLocation(temp)) break;
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned == GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+            availablePositions.Add(temp);
+
+            // Add position
+            availablePositions.Add(temp);
+
+            // If tile has piece and its unfriendly, its already added so break now
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned
+                != GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+        }
+        // Check Up
+        for (int y = 1; y < GameManager._Instance.BoardScript.GetNumberOfRows(); y++)
+        {
+            // Position to check
+            var temp = currentLocation;
+            temp += new Vector2Int(0, -y);
+
+            if (!IsValidLocation(temp)) break;
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned == GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+            availablePositions.Add(temp);
+
+            // Add position
+            availablePositions.Add(temp);
+
+            // If tile has piece and its unfriendly, its already added so break now
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(temp) != null && GameManager._Instance.BoardScript.GetPieceOnTile(temp).PlayerAssigned
+                != GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation).PlayerAssigned) break;
+        }
+
+        // Check if newPos is valid
+        foreach (var position in availablePositions)
+            GameManager._Instance.BoardScript.GetTileFromPosition(position).HighlightTile();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public override void MoveAddons() { }
 }

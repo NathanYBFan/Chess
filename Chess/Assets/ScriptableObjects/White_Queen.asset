@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PieceName: 4
   PieceIcon: {fileID: -493760402, guid: 25c6783b4df8d0940895e90f383e0b58, type: 3}
-  playerAssigned: 0
+  PlayerAssigned: 0
+  PieceMovement: {fileID: 7704742501071869931, guid: 6462db9db8c4dc44588fb64dc4190398, type: 3}
