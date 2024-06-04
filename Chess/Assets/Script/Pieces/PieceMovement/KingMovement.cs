@@ -19,56 +19,119 @@ public class KingMovement : PieceMovement
                 GameManager._Instance.BoardScript.GetTileFromPosition(temp).HighlightTile();
             }
         }
-
-        // Make sure the move wont put you in check
     }
 
     private void CanCastle(Vector2Int currentLocation, bool facingUp)
     {
         if (facingUp) // white
         {
-            Debug.Log("Is facing up");
             if (currentLocation != new Vector2Int(3, 7)) return; // If not in starting location
-
-            Debug.Log(currentLocation + new Vector2Int(-1, 0));
-            Debug.Log(currentLocation + new Vector2Int(-2, 0));
-            Debug.Log(currentLocation + new Vector2Int(-3, 0));
-
-            if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-1, 0)) != null) return;
-            if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-2, 0)) != null) return;
-            if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-3, 0)) == null) return;
-            if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-3, 0)).PlayerAssigned != Players.PlayerA) return;
-
-            if (!PreviousMoveManager._Instance.Recorder.ContainsMoveFromPiece(PieceNames.RookA, GameManager._Instance.PlayerTurn) && !PreviousMoveManager._Instance.Recorder.ContainsMoveFromPiece(PieceNames.King, GameManager._Instance.PlayerTurn))
-            {
-                // Is rook on right team
-                if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-3, 0)).PieceName == PieceNames.RookA)
-                {
-                    var temp = currentLocation;
-                    temp += new Vector2Int(-2, 0);
-                    GameManager._Instance.BoardScript.GetTileFromPosition(temp).HighlightTile();
-                }
-            }
-            else if (PreviousMoveManager._Instance.Recorder.ContainsMoveFromPiece(PieceNames.RookB, GameManager._Instance.PlayerTurn))
-            {
-
-            }
-
-            
+            CheckLeft(currentLocation, PieceNames.RookA);
+            CheckRight(currentLocation, PieceNames.RookB);
         }
         else // black
         {
-            Debug.Log("Is facing down");
+            if (currentLocation != new Vector2Int(4, 0)) return; // If not in starting location
+            Debug.Log("In correct pos");
+            CheckLeftTop(currentLocation, PieceNames.RookA);
+            CheckRightTop(currentLocation, PieceNames.RookB);
+        }
+    }
+
+    private void CheckLeft(Vector2Int currentLocation, PieceNames pieceToCheck)
+    {
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-1, 0)) != null) return;
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-2, 0)) != null) return;
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-3, 0)) == null) return;
+
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-3, 0)).PlayerAssigned != GameManager._Instance.PlayerTurn) return;
+
+        if (!PreviousMoveManager._Instance.Recorder.ContainsMoveFromPiece(pieceToCheck, GameManager._Instance.PlayerTurn) && !PreviousMoveManager._Instance.Recorder.ContainsMoveFromPiece(PieceNames.King, GameManager._Instance.PlayerTurn))
+        {
+            // Is rook on right team
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-3, 0)).PieceName == pieceToCheck)
+            {
+                var temp = currentLocation;
+                temp += new Vector2Int(-2, 0);
+                GameManager._Instance.BoardScript.GetTileFromPosition(temp).HighlightTile();
+            }
+        }
+    }
+
+    private void CheckRight(Vector2Int currentLocation, PieceNames pieceToCheck)
+    {
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(1, 0)) != null) return;
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(2, 0)) != null) return;
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(3, 0)) != null) return;
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(4, 0)) == null) return;
+
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(4, 0)).PlayerAssigned != GameManager._Instance.PlayerTurn) return;
+
+        if (!PreviousMoveManager._Instance.Recorder.ContainsMoveFromPiece(pieceToCheck, GameManager._Instance.PlayerTurn) && !PreviousMoveManager._Instance.Recorder.ContainsMoveFromPiece(PieceNames.King, GameManager._Instance.PlayerTurn))
+        {
+            // Is rook on right team
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(4, 0)).PieceName == pieceToCheck)
+            {
+                var temp = currentLocation;
+                temp += new Vector2Int(3, 0);
+                GameManager._Instance.BoardScript.GetTileFromPosition(temp).HighlightTile();
+            }
+        }
+    }
+
+    private void CheckLeftTop(Vector2Int currentLocation, PieceNames pieceToCheck)
+    {
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-1, 0)) != null) return;
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-2, 0)) != null) return;
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-3, 0)) != null) return;
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-4, 0)) == null) return;
+
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-4, 0)).PlayerAssigned != GameManager._Instance.PlayerTurn) return;
+
+        if (!PreviousMoveManager._Instance.Recorder.ContainsMoveFromPiece(pieceToCheck, GameManager._Instance.PlayerTurn) && !PreviousMoveManager._Instance.Recorder.ContainsMoveFromPiece(PieceNames.King, GameManager._Instance.PlayerTurn))
+        {
+            // Is rook on right team
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(-4, 0)).PieceName == pieceToCheck)
+            {
+                var temp = currentLocation;
+                temp += new Vector2Int(-3, 0);
+                GameManager._Instance.BoardScript.GetTileFromPosition(temp).HighlightTile();
+            }
+        }
+    }
+
+    private void CheckRightTop(Vector2Int currentLocation, PieceNames pieceToCheck)
+    {
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(1, 0)) != null) return;
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(2, 0)) != null) return;
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(3, 0)) == null) return;
+
+        if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(3, 0)).PlayerAssigned != GameManager._Instance.PlayerTurn) return;
+
+        if (!PreviousMoveManager._Instance.Recorder.ContainsMoveFromPiece(pieceToCheck, GameManager._Instance.PlayerTurn) && !PreviousMoveManager._Instance.Recorder.ContainsMoveFromPiece(PieceNames.King, GameManager._Instance.PlayerTurn))
+        {
+            // Is rook on right team
+            if (GameManager._Instance.BoardScript.GetPieceOnTile(currentLocation + new Vector2Int(3, 0)).PieceName == pieceToCheck)
+            {
+                var temp = currentLocation;
+                temp += new Vector2Int(2, 0);
+                GameManager._Instance.BoardScript.GetTileFromPosition(temp).HighlightTile();
+            }
         }
     }
 
     public override void MoveAddons(Vector2Int moveToLocation)
     {
-        Debug.Log(Mathf.Abs(moveToLocation.x - CurrentLocation.x));
         if (Mathf.Abs(moveToLocation.x - CurrentLocation.x) <= 1) return;
         // Castle was done
         if (moveToLocation == new Vector2Int(1, 7))
             GameManager._Instance.BoardScript.MovePieceWithoutDeselect(GameManager._Instance.BoardScript.GetObjectOnTile(new Vector2Int(0, 7)), new Vector2Int(2, 7));
+        else if (moveToLocation == new Vector2Int(6, 7))
+            GameManager._Instance.BoardScript.MovePieceWithoutDeselect(GameManager._Instance.BoardScript.GetObjectOnTile(new Vector2Int(7, 7)), new Vector2Int(5, 7));
+        else if (moveToLocation == new Vector2Int(1, 0))
+            GameManager._Instance.BoardScript.MovePieceWithoutDeselect(GameManager._Instance.BoardScript.GetObjectOnTile(new Vector2Int(0, 0)), new Vector2Int(2, 0));
+        else if (moveToLocation == new Vector2Int(6, 0))
+            GameManager._Instance.BoardScript.MovePieceWithoutDeselect(GameManager._Instance.BoardScript.GetObjectOnTile(new Vector2Int(7, 0)), new Vector2Int(5, 0));
     }
     public override void PostMoveAddons() { GameManager._Instance.NextTurn(); }
 }

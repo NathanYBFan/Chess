@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.UI;
 
 public class PieceChangeUI : MonoBehaviour
@@ -70,6 +71,8 @@ public class PieceChangeUI : MonoBehaviour
 
     public void ButtonPressed(int buttonNumber)
     {
+        AudioManager._Instance.PlaySoundFX(1);
+
         if (player == Players.PlayerB)
         {
             switch (buttonNumber)

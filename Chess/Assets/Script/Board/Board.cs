@@ -38,10 +38,10 @@ public sealed class Board : MonoBehaviour
         // Assign piece data
         piece.GetComponent<defaultPiece>().PieceAssigned = pieceID;
         // Reset transform parent
-        piece.transform.SetParent(rows[location.x].Tiles[location.y].transform, false);
+        piece.transform.SetParent(rows[location.y].Tiles[location.x].transform, false);
 
         // Set tile data
-        Tile tileData = rows[location.x].Tiles[location.y].GetComponent<Tile>();
+        Tile tileData = rows[location.y].Tiles[location.x].GetComponent<Tile>();
         tileData.HasPiece = true;
 
         // Reset local position to 0

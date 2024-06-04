@@ -76,10 +76,10 @@ public sealed class GameManager : MonoBehaviour
         for (var i = 0; i < 8; i++)
         {
             GameObject white_Pawn = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-            boardScript.PlacePiece(white_Pawn, listOfWhitePieces[0], new Vector2Int(6, i));
+            boardScript.PlacePiece(white_Pawn, listOfWhitePieces[0], new Vector2Int(i, 6));
 
             GameObject black_Pawn = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-            boardScript.PlacePiece(black_Pawn, listOfBlackPieces[0], new Vector2Int(1, i));
+            boardScript.PlacePiece(black_Pawn, listOfBlackPieces[0], new Vector2Int(i, 1));
 
             activePieces.Add(white_Pawn);
             activePieces.Add(black_Pawn);
@@ -90,17 +90,17 @@ public sealed class GameManager : MonoBehaviour
         {
             // White
             GameObject white_Knight = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-            boardScript.PlacePiece(white_Knight, listOfWhitePieces[2], new Vector2Int(7, 1 + i * 5));
+            boardScript.PlacePiece(white_Knight, listOfWhitePieces[2], new Vector2Int(1 + i * 5, 7));
 
             GameObject white_Bishop = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-            boardScript.PlacePiece(white_Bishop, listOfWhitePieces[3], new Vector2Int(7, 2 + i * 3));
+            boardScript.PlacePiece(white_Bishop, listOfWhitePieces[3], new Vector2Int(2 + i * 3, 7));
 
             // Black
             GameObject black_Knight = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-            boardScript.PlacePiece(black_Knight, listOfBlackPieces[2], new Vector2Int(0, 1 + i * 5));
+            boardScript.PlacePiece(black_Knight, listOfBlackPieces[2], new Vector2Int(1 + i * 5, 0));
 
             GameObject black_Bishop = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-            boardScript.PlacePiece(black_Bishop, listOfBlackPieces[3], new Vector2Int(0, 2 + i * 3));
+            boardScript.PlacePiece(black_Bishop, listOfBlackPieces[3], new Vector2Int(2 + i * 3, 0));
 
             activePieces.Add(white_Knight);
             activePieces.Add(white_Bishop);
@@ -111,7 +111,7 @@ public sealed class GameManager : MonoBehaviour
 
         // Rooks
         GameObject white_RookA = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-        boardScript.PlacePiece(white_RookA, listOfWhitePieces[1], new Vector2Int(7, 0));
+        boardScript.PlacePiece(white_RookA, listOfWhitePieces[1], new Vector2Int(0, 7));
 
         GameObject white_RookB = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
         boardScript.PlacePiece(white_RookB, listOfWhitePieces[6], new Vector2Int(7, 7));
@@ -120,21 +120,21 @@ public sealed class GameManager : MonoBehaviour
         boardScript.PlacePiece(black_RookA, listOfBlackPieces[1], new Vector2Int(0, 0));
         
         GameObject black_RookB = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-        boardScript.PlacePiece(black_RookB, listOfBlackPieces[6], new Vector2Int(0, 7));
+        boardScript.PlacePiece(black_RookB, listOfBlackPieces[6], new Vector2Int(7, 0));
 
         // Kings
         GameObject white_King = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-        boardScript.PlacePiece(white_King, listOfWhitePieces[4], new Vector2Int(7, 3));
+        boardScript.PlacePiece(white_King, listOfWhitePieces[4], new Vector2Int(3, 7));
 
         GameObject black_King = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-        boardScript.PlacePiece(black_King, listOfBlackPieces[4], new Vector2Int(0, 3));
+        boardScript.PlacePiece(black_King, listOfBlackPieces[4], new Vector2Int(4, 0));
 
         // Queens
         GameObject white_Queen = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-        boardScript.PlacePiece(white_Queen, listOfWhitePieces[5], new Vector2Int(7, 4));
+        boardScript.PlacePiece(white_Queen, listOfWhitePieces[5], new Vector2Int(4, 7));
 
         GameObject black_Queen = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-        boardScript.PlacePiece(black_Queen, listOfBlackPieces[5], new Vector2Int(0, 4));
+        boardScript.PlacePiece(black_Queen, listOfBlackPieces[5], new Vector2Int(3, 0));
         
         activePieces.Add(white_RookA);
         activePieces.Add(white_RookB);
@@ -181,11 +181,19 @@ public sealed class GameManager : MonoBehaviour
 
     public void ResetAll()
     {
+        playerTurn = Players.PlayerA;
+        playerTurnText.text = playerTurn == Players.PlayerA ? "White's Turn" : "Black's Turn";
+
+        AudioManager._Instance.PlaySoundFX(1);
         // Destroy all pieces
         for (int i = 0; i < activePieces.Count; i++)
             Destroy(activePieces[i]);
         // Clear list
         activePieces.Clear();
+
+        for (int y = 0; y < boardScript.GetNumberOfRows(); y++)
+            for (int x = 0; x < boardScript.GetNumberOfColumns(); x++)
+                boardScript.GetTileFromPosition(new Vector2Int(x, y)).HasPiece = false;
 
         // Clear all previous moves
         PreviousMoveManager._Instance.Recorder.recordingQueue.Clear();

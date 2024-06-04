@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8855e9b8a10bed42b98a2dd85e78095, type: 3}
   m_Name: Black_Knight
   m_EditorClassIdentifier: 
-  PieceName: 2
+  PieceName: 4
   PieceIcon: {fileID: 1827779707, guid: 20108c3daa323cd49bf5f9c27ad6fc0c, type: 3}
   PlayerAssigned: 1
   PieceMovement: {fileID: 1321852295236677127, guid: 29957a056988b33438f3649354365ad3, type: 3}

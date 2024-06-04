@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8855e9b8a10bed42b98a2dd85e78095, type: 3}
   m_Name: White_Bishop
   m_EditorClassIdentifier: 
-  PieceName: 3
+  PieceName: 5
   PieceIcon: {fileID: 2056629329, guid: 25c6783b4df8d0940895e90f383e0b58, type: 3}
   PlayerAssigned: 0
   PieceMovement: {fileID: 8166314537851202815, guid: 27d7f5f1f3e0e234fa43da355961dbf5, type: 3}

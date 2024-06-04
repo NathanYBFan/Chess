@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8855e9b8a10bed42b98a2dd85e78095, type: 3}
   m_Name: White_King
   m_EditorClassIdentifier: 
-  PieceName: 5
+  PieceName: 7
   PieceIcon: {fileID: 890452813, guid: 25c6783b4df8d0940895e90f383e0b58, type: 3}
   PlayerAssigned: 0
   PieceMovement: {fileID: 3968611326837709442, guid: a63831b06ec68fa4f9f9e78cda62d3e5, type: 3}

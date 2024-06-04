@@ -17,7 +17,7 @@ public class PawnMovement : PieceMovement
         if (currentLocation.y == 6 || currentLocation.y == 1)
         {
             Vector2Int position = facingUp ? currentLocation + new Vector2Int(0, -2) : currentLocation + new Vector2Int(0, 2);
-            if (IsValidLocation(position) && GameManager._Instance.BoardScript.GetPieceOnTile(position) == null)
+            if (IsValidLocation(position) && GameManager._Instance.BoardScript.GetPieceOnTile(position) == null && GameManager._Instance.BoardScript.GetPieceOnTile(facingUp ? currentLocation + new Vector2Int(0, -1): currentLocation + new Vector2Int(0, 1)) == null)
                 availablePositions.Add(position);
         }
 

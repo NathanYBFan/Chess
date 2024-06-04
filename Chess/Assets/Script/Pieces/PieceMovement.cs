@@ -32,6 +32,8 @@ public abstract class PieceMovement : MonoBehaviour
 
         // After the move addons
         PostMoveAddons();
+
+        AudioManager._Instance.PlaySoundFX(0);
     }
 
     public bool IsValidLocation(Vector2Int position)

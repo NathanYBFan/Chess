@@ -14,7 +14,7 @@ public class Recorder : MonoBehaviour
     public void RecordReplayFrame(ReplayData data)
     {
         recordingQueue.Enqueue(data);
-        Debug.Log("RecordingData: " + data.Piece + ":" + data.CurrentLocation + ":" + data.MoveToLocation + ":" + data.Player);
+        //Debug.Log("RecordingData: " + data.Piece + ":" + data.CurrentLocation + ":" + data.MoveToLocation + ":" + data.Player);
     }
 
     public bool ContainsMoveFromPiece(PieceNames pieceToCheckFor, Players playerAssigned)

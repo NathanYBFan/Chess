@@ -55,6 +55,7 @@ public class Tile : MonoBehaviour, IPointerClickHandler
         if (hasPiece && gameObject.transform.GetChild(1).gameObject == GameManager._Instance.SelectedPiece)
         {
             GameManager._Instance.DeselectAllTiles();
+            AudioManager._Instance.PlaySoundFX(1);
         }
         // glow is active
         else if (glowHighlightObject.activeInHierarchy)
@@ -62,7 +63,10 @@ public class Tile : MonoBehaviour, IPointerClickHandler
             if (GameManager._Instance.SelectedPiece != null)
             {
                 if (hasPiece)
+                {
                     GameManager._Instance.BoardScript.GetPieceOnTile(tileLocation).Death(tileLocation);
+                    AudioManager._Instance.PlaySoundFX(2);
+                }
 
                 GameManager._Instance.SelectedPiece.GetComponent<defaultPiece>().PieceAssigned.PieceMovement.MovePiece(TileLocation);
             }
@@ -70,6 +74,7 @@ public class Tile : MonoBehaviour, IPointerClickHandler
         else
         {
             TileSelected();
+            AudioManager._Instance.PlaySoundFX(1);
         }
     }
 }

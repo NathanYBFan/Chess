@@ -13,11 +13,13 @@ public class WinScreen : MonoBehaviour
     {
         titleTextBox.text = GameManager._Instance.PlayerTurn == Players.PlayerA ? "White Wins!": "Black Wins!";
         statTextBox.text = "Total moves this game: " + PreviousMoveManager._Instance.Recorder.recordingQueue.Count;
+        AudioManager._Instance.PlaySoundFX(3);
     }
 
     public void ContinueButtonPressed()
     {
         GameManager._Instance.ResetAll();
         GameManager._Instance.DeactivateWinScreen();
+        AudioManager._Instance.PlaySoundFX(1);
     }
 }
