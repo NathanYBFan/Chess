@@ -124,17 +124,17 @@ public sealed class GameManager : MonoBehaviour
 
         // Kings
         GameObject white_King = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-        boardScript.PlacePiece(white_King, listOfWhitePieces[4], new Vector2Int(3, 7));
+        boardScript.PlacePiece(white_King, listOfWhitePieces[4], new Vector2Int(4, 7));
 
         GameObject black_King = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-        boardScript.PlacePiece(black_King, listOfBlackPieces[4], new Vector2Int(4, 0));
+        boardScript.PlacePiece(black_King, listOfBlackPieces[4], new Vector2Int(3, 0));
 
         // Queens
         GameObject white_Queen = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-        boardScript.PlacePiece(white_Queen, listOfWhitePieces[5], new Vector2Int(4, 7));
+        boardScript.PlacePiece(white_Queen, listOfWhitePieces[5], new Vector2Int(3, 7));
 
         GameObject black_Queen = Instantiate(defaultPiecePrefab, boardScript.gameObject.transform);
-        boardScript.PlacePiece(black_Queen, listOfBlackPieces[5], new Vector2Int(3, 0));
+        boardScript.PlacePiece(black_Queen, listOfBlackPieces[5], new Vector2Int(4, 0));
         
         activePieces.Add(white_RookA);
         activePieces.Add(white_RookB);

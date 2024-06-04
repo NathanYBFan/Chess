@@ -155,7 +155,7 @@ TextureImporter:
       name: Black_Queen
       rect:
         serializedVersion: 2
-        x: 0
+        x: 256
         y: 128
         width: 128
         height: 128
@@ -176,7 +176,7 @@ TextureImporter:
       name: Black_King
       rect:
         serializedVersion: 2
-        x: 256
+        x: 0
         y: 128
         width: 128
         height: 128
